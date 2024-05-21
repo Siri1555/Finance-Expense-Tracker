@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance-expense-tracker</title>
+    <style>
+     body {
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .content {
+            padding: 20px;
+        }
+    * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+        }
+
+        .container h2, .container h3 {
+            text-align: center;
+        }
+
+        .container form {
+            margin-top: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-control input[type="text"],
+        .form-control input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .list li {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .money-plus {
+            color: #2ecc71;
+        }
+
+        .money-minus {
+            color: #c0392b;
+        }
+ body {
+            height: 100%;
+            overflow-y: scroll;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Adjust for content padding */
+        header, .container {
+            padding-bottom: 100px; /* Adjust as needed */
+        }
+        .sign-out-btn {
+            background-color: #c0392b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .sign-out-btn:hover {
+            background-color: #e74c3c;
+        }
+        .username {
+            font-size: 44px;
+            font-weight: bold;
+            animation: fadeIn ease 2s;
+            transition: transform 0.3s ease; /* Add transition for transform */
+            display: inline-block; /* Ensures the element respects the animation */
+        }
+
+        /* Define animation keyframes */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Add some cool colors to the username */
+        .username {
+            color: #64044a; /* Blue color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow */
+        }
+
+        /* Add hover effect */
+        .username:hover {
+            animation: wave 0.5s infinite alternate; /* Apply the wave animation on hover */
+        }
+
+        /* Define wave animation */
+        @keyframes wave {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+  <header>
+        <h1>Finance Expense Tracker</h1>
+        <h2>Hello <span class="username">{{name}}</span></h2>        
+        <p>Keep track of your finances with ease!</p>
+        <button class="sign-out-btn" onclick="signOut()">Sign Out</button>
+    </header>
+        <div class="content">
+        <!-- Additional content for scrolling -->
+        <h2>About Finance Expense Tracker</h2>
+        <p>Welcome to the Finance Expense Tracker, your tool for managing your financial transactions effectively. With this tracker, you can easily monitor your income, expenses, and overall balance.</p>
+        <h2>Features</h2>
+        <ul>
+            <li>Track your balance in real-time</li>
+            <li>Add income and expense transactions</li>
+            <li>View detailed transaction history</li>
+            <li>Simple and intuitive interface</li>
+        </ul>
+        <h2>Why Use Finance Expense Tracker?</h2>
+        <p>Managing personal finances can be challenging, but with Finance Expense Tracker, you can take control of your money with ease. Say goodbye to complicated spreadsheets and cumbersome apps – our tracker simplifies the process, allowing you to focus on what matters most.</p>
+        <h2>Get Started</h2>
+        <p>Ready to take charge of your finances? Start using Finance Expense Tracker today and experience the difference!</p>
+    </div>
+    <div class="container">
+        <h3>Your Balance</h3>
+        <h2 id="balance">₹0.00</h2>
+        <div class="inc-exp-container">
+            <div>
+                <h4>Finance Income</h4>
+                <p id="money-plus" class="money-plus">+₹0.00</p>
+            </div>
+            <div>
+                <h4>Finance Expense</h4>
+                <p id="money-minus" class="money-minus">-₹0.00</p>
+            </div>
+        </div>
+        <h3>Finance Transaction History</h3>
+        <ul id="list" class="list"></ul>
+        <h3>Add New Transaction</h3>
+        <form id="form">
+            <div class="form-control">
+                <label for="text">Text</label>
+                <input type="text" id="text" placeholder="Enter Text...."/>
+            </div>
+            <div class="form-control">
+                <label for="amount">Amount <br> (negative - expense, positive - income)</label>
+                <input type="number" id="amount" placeholder="Enter amount...">
+            </div>
+            <button class="btn">Add Transaction</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2024 Finance Expense Tracker. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+      <script>
+        const balance = document.getElementById('balance');
+        const moneyPlus = document.getElementById('money-plus');
+        const moneyMinus = document.getElementById('money-minus');
+        const list = document.getElementById('list');
+        const form = document.getElementById('form');
+        const text = document.getElementById('text');
+        const amount = document.getElementById('amount');
+
+        const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
+
+        let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
+
+        function addTransaction(e) {
+            e.preventDefault();
+
+            if (text.value.trim() === '' || amount.value.trim() === '') {
+                alert('Please enter text and amount');
+                return;
+            }
+
+            const transaction = {
+                id: generateID(),
+                text: text.value,
+                amount: +amount.value
+            };
+
+            transactions.push(transaction);
+
+            addTransactionDOM(transaction);
+            updateValues();
+            updateLocalStorage();
+
+            text.value = '';
+            amount.value = '';
+        }
+
+        function generateID() {
+            return Math.floor(Math.random() * 1000000000);
+        }
+
+        function addTransactionDOM(transaction) {
+            const sign = transaction.amount < 0 ? '-' : '+';
+            const item = document.createElement('li');
+
+            item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
+
+            item.innerHTML = `
+                ${transaction.text} <span>${sign}₹${Math.abs(transaction.amount)}</span> 
+                <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+            `;
+
+            list.appendChild(item);
+        }
+
+        const updateValues = () => {
+            const amounts = transactions.map(transaction => transaction.amount);
+            const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+            const income = amounts.filter(item => item > 0).reduce((acc, item) => (acc += item), 0).toFixed(2);
+            const expense = (amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) * -1).toFixed(2);
+
+            balance.innerText = `₹${total}`;
+            moneyPlus.innerText = `+₹${income}`;
+            moneyMinus.innerText = `-₹${expense}`;
+        }
+
+        function removeTransaction(id) {
+            transactions = transactions.filter(transaction => transaction.id !== id);
+            updateLocalStorage();
+            Init();
+        }
+
+        function updateLocalStorage() {
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+        }
+
+        function Init() {
+            list.innerHTML = '';
+            transactions.forEach(addTransactionDOM);
+            updateValues();
+        }
+        function signOut() {
+            // Add sign-out functionality here
+            alert('Signing out...'); // Placeholder for actual sign-out logic
+            window.location.href = "login.html";
+        }
+
+        Init();
+
+        form.addEventListener('submit', addTransaction);
+    </script>
+</body>
+</html>
+
+        // JavaScript code goes
